@@ -47,6 +47,8 @@ trackerCapture.controller('DataEntryController',
     
     //Labels
     $scope.dataElementLabel = $translate.instant('data_element');
+    // inf5750-project
+    $scope.previousValueLabel = $translate.instant('prev_value');
     $scope.valueLabel = $translate.instant('value');
     $scope.providedElsewhereLabel = $translate.instant('provided_elsewhere');
     
@@ -69,6 +71,9 @@ trackerCapture.controller('DataEntryController',
         {color: 'alert-default ', description: 'skipped'}
     ];
     $scope.showEventColors = false;
+
+    // inf5750-project
+    $scope.needPrevValues = false;
 
     //listen for rule effect changes
     $scope.$on('ruleeffectsupdated', function (event, args) {
@@ -412,8 +417,17 @@ trackerCapture.controller('DataEntryController',
         });
     };
 
+
     $scope.showDataEntry = function (event, rightAfterEnrollment) {
         if (event) {
+
+            // inf5750-project
+            // hackish, should be done better
+            if(event.name == 'ANC Visit (2-4+)' || event.name == 'PNC Visit') {
+                $scope.needPrevValues = true;
+            } else {
+                $scope.needPrevValues = false;
+            }
 
             Paginator.setItemCount($scope.eventsByStage[event.programStage].length);
             Paginator.setPage($scope.eventsByStage[event.programStage].indexOf(event));

@@ -4,6 +4,9 @@
             <tr>
                 <th ng-bind="dataElementLabel">
                 </th>
+                <!-- inf5750-project -->
+                <th ng-bind="previousValueLabel" ng-if="needPrevValues">
+                </th>
                 <th ng-bind="valueLabel">
                 </th>
                 <th ng-if="allowProvidedElsewhereExists" ng-bind="providedElsewhereLabel">
@@ -17,6 +20,19 @@
                     <span class="glyphicon glyphicon-info-sign" ></span>
                     <span ng-show="showHelpText[prStDe.dataElement.id]" ><br>{{prStDe.dataElement.description}}</span>
                 </a>     
+            </td>
+            <!-- inf5750-project -->
+            <td ng-if="needPrevValues">
+                <ng-form name="innerForm">
+                    <div class="prev-container">
+                        <input type="text"
+                                class="form-control force-float-left"
+                                ng-disabled="true"/>
+                        <button class="btn btn-default horizonal-spacing prev-vertical-spacing">
+                            <i class="fa fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </ng-form>
             </td>
             <td>
                 <ng-form name="innerForm">

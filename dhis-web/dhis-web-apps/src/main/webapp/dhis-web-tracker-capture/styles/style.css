@@ -1180,3 +1180,25 @@ input, button, select, textarea {
     cursor: default;
     width: 100%;
 }
+
+/*----------------------------------------------------------------------------*/
+/* inf5750-project
+/*----------------------------------------------------------------------------*/
+
+.prev-container {
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.prev-vertical-spacing {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.force-float-right {
+    float: right;
+}
+
+.force-float-left {
+    float: left;
+}
