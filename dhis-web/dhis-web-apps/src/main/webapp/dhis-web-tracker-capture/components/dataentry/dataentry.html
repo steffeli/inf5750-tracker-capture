@@ -1,6 +1,6 @@
 <div class="panel panel-info" ng-controller="DataEntryController">
     <div class="panel-heading handle bold">
-        {{dataentryWidget.title| translate}}        
+        {{dataentryWidget.title| translate}}
 
         <span class="pull-right widget-link">
 
@@ -11,14 +11,14 @@
                 <span ng-show="dataentryWidget.expand"><i class="fa fa-chevron-up vertical-center" title="{{collapseLabel}}"></i></span>
                 <span ng-show="!dataentryWidget.expand"><i class="fa fa-chevron-down vertical-center" title="{{expandLabel}}"></i></span>
             </a>
-            <a class="small-horizonal-spacing" href ng-click="removeWidget(dataentryWidget)" title="{{removeLabel}}"><i class="fa fa-times-circle vertical-center"></i></a>            
-        </span>        
+            <a class="small-horizonal-spacing" href ng-click="removeWidget(dataentryWidget)" title="{{removeLabel}}"><i class="fa fa-times-circle vertical-center"></i></a>
+        </span>
     </div>
 
     <div ng-show="dataentryWidget.expand" class="panel-body dashboard-widget-container">
         <div ng-if="showEventColors">
             <span class='bold'>{{'legend'| translate}}</span>
-            <table class="table table-bordered" style="width: 100%;">               
+            <table class="table table-bordered" style="width: 100%;">
                 <tr>
                     <td ng-class="eventColor.color" ng-repeat="eventColor in eventColors">
                         <span class="bold">{{eventColor.description| translate}}</span>
@@ -31,8 +31,8 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th class="active" style="vertical-align:middle" ng-repeat="stage in programStages">                            
-                            {{stage.name}}  
+                        <th class="active" style="vertical-align:middle" ng-repeat="stage in programStages">
+                            {{stage.name}}
 
                             <!-- event add/filter icon begins -->
                             <span class='pull-right'>
@@ -50,8 +50,8 @@
                     <tr>
                         <td ng-repeat="stage in programStages">
                             <div class="inline-block" ng-repeat="dhis2Event in eventsByStage[stage.id]">
-                                <div class="event-container" 
-                                     ng-class="getEventStyle(dhis2Event)" 
+                                <div class="event-container"
+                                     ng-class="getEventStyle(dhis2Event)"
                                      ng-show="!currentPeriod[stage.id] || !filterEvents || currentPeriod[stage.id] && currentPeriod[stage.id].event === dhis2Event.event"
                                      ng-click="showDataEntry(dhis2Event, false)">
                                     {{dhis2Event.orgUnitName}}<br/>
@@ -63,12 +63,12 @@
                                 <span ng-if="currentEvent.programStage !== stage.id">
                                     <div class="event-paging">
                                         <a href class="event-paging" ng-click="showDataEntryForEvent(eventsByStage[stage.id][0])">{{'show_more'| translate}}</a>
-                                    </div>                                    
+                                    </div>
                                 </span>
-                                <event-paginator ng-if="stage.id === currentEvent.programStage"></event-paginator>                             
+                                <event-paginator ng-if="stage.id === currentEvent.programStage"></event-paginator>
                             </span>
                             <div ng-if="!eventsByStage[stage.id] || eventsByStage[stage.id].length < 1">
-                                <div class="alert alert-warning">{{'no_events_exist'| translate}}</div> 
+                                <div class="alert alert-warning">{{'no_events_exist'| translate}}</div>
                             </div>
                         </td>
                     </tr>
@@ -88,13 +88,13 @@
                         {{currentEvent.excecutionDateLabel}}
                         <input type="text"
                                placeholder="{{dhis2CalendarFormat.keyDateFormat}}"
-                               class="form-control" 
+                               class="form-control"
                                ng-class="{'input-success': eventDateSaved}"
-                               d2-date 
+                               d2-date
                                max-date="0"
                                min-date=""
                                ng-model="currentEvent.eventDate"
-                               ng-disabled="currentEvent.status === 'SKIPPED' || currentEvent.enrollmentStatus !== 'ACTIVE' || currentEvent.editingNotAllowed"    
+                               ng-disabled="currentEvent.status === 'SKIPPED' || currentEvent.enrollmentStatus !== 'ACTIVE' || currentEvent.editingNotAllowed"
                                ng-required="true"
                                blur-or-change="saveEventDate()"/>
                         <span ng-if="invalidDate" class="error">{{'date_required'| translate}}</span>
@@ -104,18 +104,18 @@
                             {{'due_date'| translate}}
                         </span>
                         <span ng-if="!currentEvent.eventDate && currentEvent.status !== 'SKIPPED' && !selectedEntity.inactive">
-                            <a href ng-click="enableRescheduling()" title="{{ schedulingEnabled ? 'disable_rescheduling' : 'enable_rescheduling' | translate}}"><span class="text-primary bold">{{'reschedule_duedate'| translate}}</span></a>                        
-                        </span>                    
-                        <input type="text" 
+                            <a href ng-click="enableRescheduling()" title="{{ schedulingEnabled ? 'disable_rescheduling' : 'enable_rescheduling' | translate}}"><span class="text-primary bold">{{'reschedule_duedate'| translate}}</span></a>
+                        </span>
+                        <input type="text"
                                placeholder="{{dhis2CalendarFormat.keyDateFormat}}"
                                class="form-control"
                                ng-class="{'input-success': dueDateSaved}"
-                               d2-date                                
+                               d2-date
                                ng-model="currentEvent.dueDate"
-                               blur-or-change="saveDueDate()" 
+                               blur-or-change="saveDueDate()"
                                ng-disabled="currentEvent.eventDate || !schedulingEnabled || currentEvent.enrollmentStatus !== 'ACTIVE' || currentEvent.editingNotAllowed"/>
                         <span ng-if="invalidDate" class="error">{{'date_required'| translate}}</span>
-                    </div>                        
+                    </div>
                 </div>
                 <!-- event dates/scheduling end -->
 
@@ -124,27 +124,27 @@
                     <div class="col-md-6">
                         {{'latitude'| translate}}<span><a href ng-click="showMap(currentEvent)" title="{{'get_from_map'| translate}}"><i class="fa fa-map-marker fa-2x"></i></a></span>
                         <input type="number"
-                               ng-model="currentEvent.coordinate.latitude"     
-                               class="form-control" 
-                               ng-class="{'input-success': latitudeSaved}" 
+                               ng-model="currentEvent.coordinate.latitude"
+                               class="form-control"
+                               ng-class="{'input-success': latitudeSaved}"
                                name="latitude"
                                d2-coordinate-validator
                                ng-blur="saveCoordinate('LAT')"
-                               ng-disabled="currentEvent.enrollmentStatus !== 'ACTIVE' || currentEvent.editingNotAllowed"    
+                               ng-disabled="currentEvent.enrollmentStatus !== 'ACTIVE' || currentEvent.editingNotAllowed"
                                ng-required="false"/>
-                        <div ng-messages="outerForm.latitude.$error" ng-if="interacted(outerForm.latitude)" class="required" ng-messages-include="../dhis-web-commons/angular-forms/error-messages.html">                        
+                        <div ng-messages="outerForm.latitude.$error" ng-if="interacted(outerForm.latitude)" class="required" ng-messages-include="../dhis-web-commons/angular-forms/error-messages.html">
                         </div>
                     </div>
                     <div class="col-md-6">
-                        {{'longitude'| translate}}<span><a href ng-click="showMap(currentEvent)" title="{{'get_from_map'| translate}}"><i class="fa fa-map-marker fa-2x"></i></a></span>                    
-                        <input type="number"  
-                               ng-model="currentEvent.coordinate.longitude"     
-                               class="form-control" 
+                        {{'longitude'| translate}}<span><a href ng-click="showMap(currentEvent)" title="{{'get_from_map'| translate}}"><i class="fa fa-map-marker fa-2x"></i></a></span>
+                        <input type="number"
+                               ng-model="currentEvent.coordinate.longitude"
+                               class="form-control"
                                ng-class="{'input-success': longitudeSaved}"
-                               name="longitude" 
+                               name="longitude"
                                d2-coordinate-validator
                                ng-blur="saveCoordinate('LNG')"
-                               ng-disabled="currentEvent.enrollmentStatus !== 'ACTIVE' || currentEvent.editingNotAllowed" 
+                               ng-disabled="currentEvent.enrollmentStatus !== 'ACTIVE' || currentEvent.editingNotAllowed"
                                ng-required="false"/>
                         <div ng-messages="outerForm.longitude.$error" ng-if="interacted(outerForm.longitude)" class="required" ng-messages-include="../dhis-web-commons/angular-forms/error-messages.html">
                         </div>
@@ -153,10 +153,10 @@
                 <!-- coordinates begin -->
 
                 <!-- data entry form begins -->
-                <div ng-if="currentEvent.eventDate">                            
+                <div ng-if="currentEvent.eventDate">
                     <div class="clear vertical-spacing" ng-if="displayCustomForm === 'CUSTOM'" ng-include="'../dhis-web-commons/angular-forms/custom-form.html'"></div>
                     <div class="clear vertical-spacing" ng-if="displayCustomForm === 'DEFAULT'" ng-include="'components/dataentry/default-form.html'"></div>
-                </div>    
+                </div>
                 <!-- the table form is insensitive to the event date being present. In this situation the eventdate is set inside the table form -->
                 <div class="clear vertical-spacing" ng-if="displayCustomForm === 'TABLE'" ng-include="'components/dataentry/table-entry-form.html'"></div>
 
@@ -165,23 +165,23 @@
                 <!-- data entry/event buttons begins -->
                 <div class="form-group">
                     <div class='row'><hr></div>
-                    <a href ng-click="completeIncompleteEvent()" 
-                       class="btn btn-warning" 
+                    <a href ng-click="completeIncompleteEvent()"
+                       class="btn btn-warning"
                        ng-disabled="currentEvent.enrollmentStatus !== 'ACTIVE' || currentEvent.editingNotAllowed || currentEvent.orgUnit !== selectedOrgUnit.id"
                        ng-if="currentEvent.eventDate && (currentEvent.status === 'SCHEDULE' || currentEvent.status === 'ACTIVE' || currentEvent.status === 'VISITED')">{{'complete'| translate}}</a>
-                    <a href ng-click="completeIncompleteEvent()" 
+                    <a href ng-click="completeIncompleteEvent()"
                        class="btn btn-warning"
                        ng-disabled="currentEvent.enrollmentStatus !== 'ACTIVE' || currentEvent.editingNotAllowed && currentEvent.status !== 'COMPLETED' || currentEvent.orgUnit !== selectedOrgUnit.id"
-                       ng-if="currentEvent.eventDate && currentEvent.status === 'COMPLETED'">{{'incomplete'| translate}}</a>                       
-                    <a href ng-click="validateEvent()" 
-                       class="btn btn-info" 
-                       ng-disabled="currentEvent.enrollmentStatus !== 'ACTIVE' || currentEvent.editingNotAllowed || currentEvent.orgUnit !== selectedOrgUnit.id" 
-                       ng-if="currentEvent.eventDate">{{'validate'| translate}}</a>                        
-                    <a href ng-click="skipUnskipEvent()" 
-                       class="btn btn-warning" 
+                       ng-if="currentEvent.eventDate && currentEvent.status === 'COMPLETED'">{{'incomplete'| translate}}</a>
+                    <a href ng-click="validateEvent()"
+                       class="btn btn-info"
+                       ng-disabled="currentEvent.enrollmentStatus !== 'ACTIVE' || currentEvent.editingNotAllowed || currentEvent.orgUnit !== selectedOrgUnit.id"
+                       ng-if="currentEvent.eventDate">{{'validate'| translate}}</a>
+                    <a href ng-click="skipUnskipEvent()"
+                       class="btn btn-warning"
                        ng-disabled="currentEvent.enrollmentStatus !== 'ACTIVE' || currentEvent.editingNotAllowed || currentEvent.orgUnit !== selectedOrgUnit.id"
                        ng-if="!currentEvent.eventDate">{{currentEvent.status === 'SKIPPED' ? 'unskip' : 'skip'| translate}}</a>
-                    <a href ng-click="deleteEvent()" 
+                    <a href ng-click="deleteEvent()"
                        ng-disabled="currentEvent.enrollmentStatus === 'COMPLETED' || currentEvent.editingNotAllowed || currentEvent.orgUnit !== selectedOrgUnit.id"
                        class="btn btn-danger">{{'delete'| translate}}</a>
                 </div>
@@ -193,15 +193,15 @@
         <div ng-show="currentEvent" class='remove-default-padding overflow-ellipsis'>
             <div class='row'><hr></div>
             <div class="add-default-padding">
-                <textarea class="form-control" rows="3" ng-model="note" placeholder="{{'add_new_note_here'| translate}}"></textarea> 
+                <textarea class="form-control" rows="3" ng-model="note" placeholder="{{'add_new_note_here'| translate}}"></textarea>
                 <div class="vertical-spacing">
-                    <button type="button" 
+                    <button type="button"
                             class="btn btn-primary"
                             ng-click="addNote()">
                         {{'add'| translate}}
-                    </button>        
-                    <button type="button" 
-                            class="btn btn-default small-horizonal-spacing" 
+                    </button>
+                    <button type="button"
+                            class="btn btn-default small-horizonal-spacing"
                             ng-click="clearNote()">
                         {{'clear'| translate}}
                     </button>
@@ -217,12 +217,12 @@
                             <p>{{content.value}}</p>
                             <hr>
                             <p><strong>{{'created_by' | translate}}: </strong>{{content.storedBy}}</p>
-                            <p><strong>{{'date' | translate}}: </strong>{{content.storedDate}}</p>                           
+                            <p><strong>{{'date' | translate}}: </strong>{{content.storedDate}}</p>
                         </script>
-                    </td> 
+                    </td>
                 </tr>
             </table>
         </div>
-        <div ng-show="currentEvent && !currentEvent.notes" class="alert alert-warning">{{'no_notes_exist'| translate}}</div> 
-    </div>        
+        <div ng-show="currentEvent && !currentEvent.notes" class="alert alert-warning">{{'no_notes_exist'| translate}}</div>
+    </div>
 </div>

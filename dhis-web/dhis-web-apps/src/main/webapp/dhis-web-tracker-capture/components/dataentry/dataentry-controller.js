@@ -73,7 +73,7 @@ trackerCapture.controller('DataEntryController',
     $scope.showEventColors = false;
 
     // inf5750-project
-    $scope.needPrevValues = false;
+    $scope.hasPrevValues = false;
 
     //listen for rule effect changes
     $scope.$on('ruleeffectsupdated', function (event, args) {
@@ -213,6 +213,8 @@ trackerCapture.controller('DataEntryController',
         $scope.showDataEntryDiv = false;
         $scope.showEventCreationDiv = false;
         $scope.currentEvent = null;
+        // inf5750-project
+        $scope.previousStage = null;
         $scope.currentStage = null;
         $scope.currentStageEvents = null;
         $scope.totalEvents = 0;
@@ -417,17 +419,8 @@ trackerCapture.controller('DataEntryController',
         });
     };
 
-
     $scope.showDataEntry = function (event, rightAfterEnrollment) {
         if (event) {
-
-            // inf5750-project
-            // hackish, should be done better
-            if(event.name == 'ANC Visit (2-4+)' || event.name == 'PNC Visit') {
-                $scope.needPrevValues = true;
-            } else {
-                $scope.needPrevValues = false;
-            }
 
             Paginator.setItemCount($scope.eventsByStage[event.programStage].length);
             Paginator.setPage($scope.eventsByStage[event.programStage].indexOf(event));
@@ -444,7 +437,7 @@ trackerCapture.controller('DataEntryController',
             else {
                 $scope.currentElement = {};                
                 $scope.currentEvent = event;
-                
+
                 var index = -1;
                 for (var i = 0; i < $scope.eventsByStage[event.programStage].length && index === -1; i++) {
                     if ($scope.eventsByStage[event.programStage][i].event === event.event) {
@@ -469,6 +462,14 @@ trackerCapture.controller('DataEntryController',
                 }
 
                 $scope.getDataEntryForm();
+
+                // inf5750-project
+                if($scope.currentStageEvents.length > 1 && index < $scope.currentStageEvents.length-1) {
+                    $scope.hasPrevValues = true;
+                    $scope.previousEvent = $scope.currentStageEvents[index+1];
+                } else {
+                    $scope.hasPrevValues = false;
+                }
             }
         }
     };
@@ -1143,6 +1144,8 @@ trackerCapture.controller('DataEntryController',
     $scope.selectedStage = $scope.stagesById[dummyEvent.programStage];
 
     $scope.dhis2Event = {eventDate: '', dueDate: dummyEvent.dueDate, excecutionDateLabel: dummyEvent.excecutionDateLabel, name: dummyEvent.name, invalid: true};
+
+    console.log(dummyEvent.name);
 
     if ($scope.selectedStage.periodType) {
         $scope.dhis2Event.eventDate = dummyEvent.dueDate;
