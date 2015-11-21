@@ -1187,12 +1187,11 @@ input, button, select, textarea {
 
 .prev-container {
     white-space: nowrap;
-    display: inline-block;
+    display: flex;
 }
 
-.prev-vertical-spacing {
-    margin-top: 5px;
-    margin-bottom: 5px;
+.prev-copy-spacing {
+    margin: 5px;
 }
 
 .force-float-right {
