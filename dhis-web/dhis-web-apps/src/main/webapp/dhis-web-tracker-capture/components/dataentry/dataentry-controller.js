@@ -471,10 +471,8 @@ trackerCapture.controller('DataEntryController',
                     console.log($scope.currentStageEvents);
                 } else if($scope.currentStageEvents.length > 1 && index == $scope.currentStageEvents.length-1) {
                     $scope.hasPrevValues = true;
-                    var t = $scope.programStages[0];
-                    var y = $scope.eventsByStage[t.id][0];
-                    $scope.previousEvent = y;
-
+                    var first_visit = $scope.eventsByStage[$scope.programStages[0].id][0];
+                    $scope.previousEvent = first_visit;
 
                 } else {
                     $scope.hasPrevValues = false;
