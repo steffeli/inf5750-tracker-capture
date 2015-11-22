@@ -466,7 +466,16 @@ trackerCapture.controller('DataEntryController',
                 // inf5750-project
                 if($scope.currentStageEvents.length > 1 && index < $scope.currentStageEvents.length-1) {
                     $scope.hasPrevValues = true;
-                    $scope.previousEvent = $scope.currentStageEvents[index+1];
+                    $scope.previousEvent = $scope.currentStageEvents[index + 1];
+                    console.log(event.programStage);
+                    console.log($scope.currentStageEvents);
+                } else if($scope.currentStageEvents.length > 1 && index == $scope.currentStageEvents.length-1) {
+                    $scope.hasPrevValues = true;
+                    var t = $scope.programStages[0];
+                    var y = $scope.eventsByStage[t.id][0];
+                    $scope.previousEvent = y;
+
+
                 } else {
                     $scope.hasPrevValues = false;
                 }
