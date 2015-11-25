@@ -1201,3 +1201,7 @@ input, button, select, textarea {
 .force-float-left {
     float: left;
 }
+
+.remove-blue-outline {
+    outline : none !important;
+}
