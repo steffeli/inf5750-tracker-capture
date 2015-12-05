@@ -48,7 +48,7 @@ trackerCapture.controller('DataEntryController',
     //Labels
     $scope.dataElementLabel = $translate.instant('data_element');
     // inf5750-project
-    $scope.previousValueLabel = $translate.instant('prev_value');
+    //$scope.previousValueLabel = $translate.instant('prev_value');
     $scope.valueLabel = $translate.instant('value');
     $scope.providedElsewhereLabel = $translate.instant('provided_elsewhere');
     
@@ -213,14 +213,14 @@ trackerCapture.controller('DataEntryController',
         $scope.showDataEntryDiv = false;
         $scope.showEventCreationDiv = false;
         $scope.currentEvent = null;
-        // inf5750-project
-        $scope.previousStage = null;
         $scope.currentStage = null;
         $scope.currentStageEvents = null;
         $scope.totalEvents = 0;
 
         $scope.allowEventCreation = false;
         $scope.repeatableStages = [];
+        // inf5750-project
+        $scope.previousEvents = [];
         $scope.eventsByStage = [];
         $scope.eventsByStageAsc = [];
         $scope.programStages = [];
@@ -463,21 +463,42 @@ trackerCapture.controller('DataEntryController',
 
                 $scope.getDataEntryForm();
 
+                $scope.getPreviousEvents();
+
                 // inf5750-project
+                /*
                 if($scope.currentStageEvents.length > 1 && index < $scope.currentStageEvents.length-1) {
                     $scope.hasPrevValues = true;
                     $scope.previousEvent = $scope.currentStageEvents[index + 1];
-                    console.log(event.programStage);
-                    console.log($scope.currentStageEvents);
                 } else if($scope.currentStageEvents.length > 1 && index == $scope.currentStageEvents.length-1) {
                     $scope.hasPrevValues = true;
                     var first_visit = $scope.eventsByStage[$scope.programStages[0].id][0];
                     $scope.previousEvent = first_visit;
-
                 } else {
                     $scope.hasPrevValues = false;
                 }
+                */
             }
+        }
+    };
+
+    // inf5750-project
+    $scope.getPreviousEvents = function() {
+        $scope.previousEvents = [];
+        for(i = $scope.currentStageEvents.length-1; i > 0; i--) {
+            if($scope.currentStageEvents[i] == $scope.currentEvent) {
+                break;
+            } else {
+                $scope.previousEvents.push($scope.currentStageEvents[i]);
+            }
+        }
+    };
+
+    $scope.prevEventLabel = function(event, index) {
+        if(event.name.substring(0,3) == "ANC") {
+            return "ANC Visit " + index + " (" + event.eventDate + ")";
+        } else if(event.name.substring(0,3) == "PNC") {
+            return "PNC Visit " + index + " (" + event.eventDate + ")";
         }
     };
     

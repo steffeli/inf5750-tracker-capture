@@ -1205,3 +1205,7 @@ input, button, select, textarea {
 .remove-blue-outline {
     outline : none !important;
 }
+
+.popover-content {
+    padding: 0;
+}

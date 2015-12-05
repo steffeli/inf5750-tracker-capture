@@ -5,7 +5,7 @@
             <th ng-bind="dataElementLabel">
             </th>
             <!-- inf5750-project -->
-            <th ng-bind="previousValueLabel" ng-if="hasPrevValues">
+            <th ng-bind="prevEventLabel(prevEvent, $index+2)" ng-repeat="prevEvent in previousEvents">
             </th>
             <th ng-bind="valueLabel">
             </th>
@@ -25,16 +25,20 @@
                 </a>
             </td>
             <!-- inf5750-project -->
-            <td ng-if="hasPrevValues">
+            <td ng-repeat="prevEvent in previousEvents">
                 <ng-form name="innerForm">
-                    <div class="prev-container">
+                    <div class="prev-container" prev-popover data-toggle="popover" data-placement="left">
+                        <div id="popover-content" style="display: none">
+                            <button class="btn btn-default prev-copy-spacing remove-blue-outline" ng-click="currentEvent[prStDe.dataElement.id] = prevEvent[prStDe.dataElement.id]">
+                                <i class="fa fa-copy"></i>
+                                <i class="fa fa-long-arrow-right"></i>
+                            </button>
+                        </div>
                         <input type="text"
                                class="form-control force-float-left"
-                               ng-model="previousEvent[prStDe.dataElement.id]"
-                               ng-disabled="true"/>
-                        <button class="btn btn-default prev-copy-spacing remove-blue-outline" ng-click="currentEvent[prStDe.dataElement.id] = previousEvent[prStDe.dataElement.id]">
-                            <i class="fa fa-copy"></i>
-                            <i class="fa fa-long-arrow-right"></i>
+                               ng-model="prevEvent[prStDe.dataElement.id]"
+                               ng-disabled="true"
+                                style="cursor: pointer;"/>
                     </div>
                 </ng-form>
             </td>

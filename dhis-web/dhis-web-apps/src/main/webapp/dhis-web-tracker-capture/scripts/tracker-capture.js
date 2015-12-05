@@ -54,6 +54,7 @@ $(document).ready(function()
     });
 
     $('#loaderSpan').show();
+
 });
 
 $(document).bind('dhis2.online', function(event, loggedIn)
@@ -733,3 +734,5 @@ function getD2Object( id, store, url, filter, storage )
         });
     };
 }
+
+

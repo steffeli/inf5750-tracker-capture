@@ -3,8 +3,8 @@
 /* App Module */
 
 var trackerCapture = angular.module('trackerCapture',
-        ['ui.bootstrap', 
-         'ngRoute', 
+        ['ui.bootstrap',
+         'ngRoute',
          'ngCookies',
          'ngSanitize',
          'ngMessages',
