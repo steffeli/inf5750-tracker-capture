@@ -485,6 +485,14 @@ trackerCapture.controller('DataEntryController',
     // inf5750-project
     $scope.getPreviousEvents = function() {
         $scope.previousEvents = [];
+
+        console.log("DONE");
+        if( $scope.currentStageEvents.length > 1 ) {
+            if($scope.eventsByStage[$scope.programStages[0].id][0].name.split(" ")[0] ==
+            $scope.currentStageEvents[0].name.split(" ")[0]){
+                $scope.previousEvents.push( $scope.eventsByStage[$scope.programStages[0].id][0]);
+            }
+        }
         for(i = $scope.currentStageEvents.length-1; i > 0; i--) {
             if($scope.currentStageEvents[i] == $scope.currentEvent) {
                 break;
@@ -495,11 +503,18 @@ trackerCapture.controller('DataEntryController',
     };
 
     $scope.prevEventLabel = function(event, index) {
+        index = index-1;
+
+        var event_name = event.name.split(" ")[0];
+        return event_name + index + " (" + event.eventDate + ")";
+
+        /*
         if(event.name.substring(0,3) == "ANC") {
             return "ANC Visit " + index + " (" + event.eventDate + ")";
         } else if(event.name.substring(0,3) == "PNC") {
             return "PNC Visit " + index + " (" + event.eventDate + ")";
         }
+        */
     };
     
     $scope.switchToEventRow = function (event) {
